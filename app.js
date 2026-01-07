@@ -1,1 +1,22 @@
-console.log("Hello World!");
+let tamanhoTabuleiro = 10;
+let quadradosTabuleiro = [];
+
+iniciarTabuleiro();
+
+function iniciarTabuleiro() {
+    let tabuleiroDoc = document.getElementById("tabuleiro");
+    let novoTabuleiroHTML = "";
+    for (let i = 0; i < tamanhoTabuleiro; i++) {
+        novoTabuleiroHTML += "\n<tr class='linha'>"
+        for (let j = 0; j < tamanhoTabuleiro; j++) {
+            novoTabuleiroHTML += "\n<td class='quadrado'></td>"
+            let novoQuadrado = {
+                posX : j,
+                posY : i
+            }
+            quadradosTabuleiro.push(novoQuadrado);
+        }
+        novoTabuleiroHTML += "\n</tr>"
+    }
+    tabuleiroDoc.innerHTML += novoTabuleiroHTML;
+}
