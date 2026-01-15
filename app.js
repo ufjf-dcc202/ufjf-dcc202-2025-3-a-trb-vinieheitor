@@ -30,8 +30,8 @@ let robo = {
 function moveFrente(){
     novaPosX = Math.round(Math.cos(robo.angulo * Math.PI/180));
     novaPosY = Math.round(-Math.sin(robo.angulo*Math.PI /180));
-    robo.posX = novaPosX;
-    robo.posY = novaPosy;
+    robo.posX += novaPosX;
+    robo.posY += novaPosy;
 }
 function viraHorario(){
     robo.angulo -= 90;
