@@ -33,3 +33,9 @@ function moveFrente(){
     robo.posX = novaPosX;
     robo.posY = novaPosy;
 }
+function viraHorario(){
+    robo.angulo -= 90;
+}
+function viraAntiHorario(){
+    robo.angulo += 90;
+}
