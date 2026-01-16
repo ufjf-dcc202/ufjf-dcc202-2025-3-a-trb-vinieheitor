@@ -14,6 +14,14 @@ main {
     height: 3em;
 }
 
+.plano {
+    background-color: aqua;
+}
+
+.parede {
+    background-color: blue;
+}
+
 #comandos {
     display: flex;
     margin: 20px;
