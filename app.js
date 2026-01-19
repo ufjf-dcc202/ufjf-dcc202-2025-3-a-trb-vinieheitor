@@ -1,10 +1,19 @@
 let tamanhoTabuleiro = 10;
 let quadradosTabuleiro = [];
+let comandos = [];
+
+let robo = {
+    posX: 0,
+    posY: 0,
+    angulo: 270,
+    getQuadrado : function () {
+        return document.getElementById(robo.posY + "," + robo.posX);
+    }
+};
 
 carregarNivel("nivel1.txt");
 
 function iniciarTabuleiro(nivel) {
-    //console.log(nivel);
     let tabuleiroDoc = document.getElementById("tabuleiro");
     let novoTabuleiroHTML = "";
     for (let i = 0; i < tamanhoTabuleiro; i++) {
@@ -32,6 +41,8 @@ function iniciarTabuleiro(nivel) {
         novoTabuleiroHTML += "\n</tr>"
     }
     tabuleiroDoc.innerHTML += novoTabuleiroHTML;
+
+    adicionarImagemDoRobo();
 }
 
 function carregarNivel(arquivo) {
@@ -44,11 +55,23 @@ function carregarNivel(arquivo) {
      .catch((e) => console.error(e));
 }
 
-let robo = {
-    posX: 0,
-    posY: 0,
-    angulo: 270
-};
+
+
+function removerImagemDoRobo() {
+    let imagemRobo = document.getElementById("imagemRobo");
+    imagemRobo.innerHTML = "";
+}
+
+function adicionarImagemDoRobo() {
+    let novoQuadrado = document.getElementById(robo.posY + "," + robo.posX);
+    novoQuadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo'>";
+    rotacionarImagemDoRobo()
+}
+
+function rotacionarImagemDoRobo() {
+    let imagemRobo = document.getElementById("imagemRobo");
+    imagemRobo.style.transform = "rotate(" + robo.angulo + "deg)";
+}
 
 function moveFrente(){
     novaPosX = Math.round(Math.cos(robo.angulo * Math.PI/180));
@@ -60,20 +83,47 @@ function moveFrente(){
         novaPosY = 0;
     }
 
-    let antigoQuadrado = document.getElementById(robo.posY + "," + robo.posX);
-    antigoQuadrado.innerHTML = "";
+    removerImagemDoRobo();
 
     robo.posX += novaPosX;
     robo.posY += novaPosY;
+
+    adicionarImagemDoRobo();
     
-    let novoQuadrado = document.getElementById(robo.posY + "," + robo.posX);
-    novoQuadrado.innerHTML += "<img src='robot_3Dblue.png'>";
-}
+    }
 
 function viraHorario(){
     robo.angulo -= 90;
+    rotacionarImagemDoRobo();
 }
 
 function viraAntiHorario(){
     robo.angulo += 90;
+    rotacionarImagemDoRobo();
 }
+
+function adicionarComando(idDoComando) {
+    let novoComando;
+    switch (idDoComando) {
+        case "moveFrente":
+            novoComando = {
+                nome : "Mover para frente",
+                executar : moveFrente()
+            };
+            break;
+
+        case "viraHorario":
+            novoComando = {
+                nome : "Girar no sentido horário",
+                executar : viraHorario()
+            };
+            break;
+        case "viraAntiHorario":
+            novoComando = {
+                nome : "Girar no sentido antihorário",
+                executar : viraAntiHorario()
+            };
+            break;
+    }
+}
+
