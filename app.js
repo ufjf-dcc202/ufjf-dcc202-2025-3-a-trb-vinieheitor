@@ -6,8 +6,9 @@ let robo = {
     posX: 0,
     posY: 0,
     angulo: 270,
-    getQuadrado : function () {
-        return document.getElementById(robo.posY + "," + robo.posX);
+    quadrado: null,
+    setQuadrado : function () {
+        this.quadrado = document.getElementById(robo.posY + "," + robo.posX);
     }
 };
 
@@ -42,6 +43,7 @@ function iniciarTabuleiro(nivel) {
     }
     tabuleiroDoc.innerHTML += novoTabuleiroHTML;
 
+    robo.setQuadrado();
     adicionarImagemDoRobo();
 }
 
@@ -58,19 +60,17 @@ function carregarNivel(arquivo) {
 
 
 function removerImagemDoRobo() {
-    let imagemRobo = document.getElementById("imagemRobo");
-    imagemRobo.innerHTML = "";
+    robo.quadrado.innerHTML = "";
 }
 
 function adicionarImagemDoRobo() {
-    let novoQuadrado = document.getElementById(robo.posY + "," + robo.posX);
-    novoQuadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo'>";
-    rotacionarImagemDoRobo()
+    robo.quadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo'>";
+    rotacionarImagemDoRobo();
 }
 
 function rotacionarImagemDoRobo() {
     let imagemRobo = document.getElementById("imagemRobo");
-    imagemRobo.style.transform = "rotate(" + robo.angulo + "deg)";
+    imagemRobo.style.transform = "rotate(" + -robo.angulo + "deg)";
 }
 
 function moveFrente(){
@@ -88,6 +88,7 @@ function moveFrente(){
     robo.posX += novaPosX;
     robo.posY += novaPosY;
 
+    robo.setQuadrado();
     adicionarImagemDoRobo();
     
     }
