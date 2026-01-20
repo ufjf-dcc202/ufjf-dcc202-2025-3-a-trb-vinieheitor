@@ -87,10 +87,10 @@ function rotacionarImagemDoRobo() {
 function moveFrente(){
     novaPosX = Math.round(Math.cos(robo.angulo * Math.PI/180));
     novaPosY = Math.round(-Math.sin(robo.angulo*Math.PI /180));
-    if(robo.posX + novaPosX > tamanhoTabuleiro || robo.posX + novaPosX < 0) {
+    if(robo.posX + novaPosX >= tamanhoTabuleiro || robo.posX + novaPosX < 0) {
         novaPosX = 0;
     }
-    if(robo.posY + novaPosY > tamanhoTabuleiro || robo.posY + novaPosY < 0) {
+    if(robo.posY + novaPosY >= tamanhoTabuleiro || robo.posY + novaPosY < 0) {
         novaPosY = 0;
     }
 
