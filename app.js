@@ -1,6 +1,7 @@
 let tamanhoTabuleiro = 10;
 let quadradosTabuleiro = [];
 let comandos = [];
+let luzesFaltamAcender = 0;
 
 let robo = {
     posX: 0,
@@ -30,6 +31,10 @@ function iniciarTabuleiro(nivel) {
                     break;
                 case "1":
                     classes += " parede";
+                    break;
+                case "2":
+                    classes += " luz";
+                    luzesFaltamAcender++;
                     break;
             }
             novoTabuleiroHTML += "\n<td class='" + classes + "' id='" + id + "'></td>";
@@ -103,6 +108,18 @@ function viraAntiHorario(){
     rotacionarImagemDoRobo();
 }
 
+function acenderLuz() {
+    let quadradoClass = robo.quadrado.classList;
+    if (quadradoClass.contains("luz")) {
+        luzesFaltamAcender--;
+        robo.quadrado.classList.remove("luz");
+        robo.quadrado.classList.add("apagado");
+        if (luzesFaltamAcender == 0) {
+            alert("VOCÊ GANHOU!!!!");
+        }
+    }
+}
+
 function adicionarComando(idDoComando) {
     let novoComando;
     switch (idDoComando) {
@@ -127,4 +144,3 @@ function adicionarComando(idDoComando) {
             break;
     }
 }
-
