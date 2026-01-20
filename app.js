@@ -1,6 +1,12 @@
 let tamanhoTabuleiro = 10;
 let quadradosTabuleiro = [];
-let comandos = [];
+
+let loopPrincipal = {
+    comandos : [],
+    repeticoes : 1
+};
+let loopAtual = loopPrincipal;
+
 let luzesFaltamAcender = 0;
 
 let robo = {
@@ -120,13 +126,15 @@ function acenderLuz() {
     }
 }
 
-function adicionarComando(idDoComando) {
+function adicionarComando(idDoComando, adicionais) {
     let novoComando;
     switch (idDoComando) {
         case "moveFrente":
             novoComando = {
                 nome : "Mover para frente",
-                executar : moveFrente()
+                executar : function() {
+                    moveFrente()
+                } 
             };
             break;
 
@@ -142,5 +150,14 @@ function adicionarComando(idDoComando) {
                 executar : viraAntiHorario()
             };
             break;
+    }
+    loopAtual.comandos.push(novoComando);
+}
+
+function executarLoop(loop) {
+    for (let i = 0; i < loop.repeticoes; i++) {
+        for (let j = 0; j < loop.comandos.length; j++) {
+            loop.comandos[j].executar()
+        }
     }
 }
