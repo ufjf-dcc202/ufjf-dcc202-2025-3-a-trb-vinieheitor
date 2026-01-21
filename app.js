@@ -3,7 +3,8 @@ let quadradosTabuleiro = [];
 
 let loopPrincipal = {
     comandos : [],
-    repeticoes : 1
+    repeticoes : 1,
+    loopSuperior : {}
 };
 let loopAtual = loopPrincipal;
 
@@ -126,8 +127,10 @@ function acenderLuz() {
     }
 }
 
-function adicionarComando(idDoComando, adicionais) {
+function adicionarComando(idDoComando, repeticoesLoop = 1) {
     let novoComando;
+    let adicionarNovoLoop = false;
+    let novoLoop = {};
     switch (idDoComando) {
         case "moveFrente":
             novoComando = {
@@ -141,23 +144,55 @@ function adicionarComando(idDoComando, adicionais) {
         case "viraHorario":
             novoComando = {
                 nome : "Girar no sentido horário",
-                executar : viraHorario()
+                executar : function() {
+                    viraHorario()
+                }
             };
             break;
         case "viraAntiHorario":
             novoComando = {
                 nome : "Girar no sentido antihorário",
-                executar : viraAntiHorario()
+                executar : function() {
+                    viraAntiHorario()
+                }
+            };
+            break;
+        case "abreLoop":
+            adicionarNovoLoop = true;
+            novoComando = {
+                nome : "Abrir novo Loop",
+                novoLoop : {
+                    comandos : [{}],
+                    repeticoes : repeticoesLoop,
+                    loopSuperior : loopAtual
+                },
+                executar : function() {
+                    executarLoop(this.novoLoop)
+                }
+            }
+            novoLoop = novoComando.novoLoop;
+            break;
+        case "fechaLoop":
+            adicionarNovoLoop = true;
+            novoLoop = loopAtual.loopSuperior;
+            novoComando = {
+                nome : "Fechar Loop",
+                executar : function() {}
             };
             break;
     }
+
     loopAtual.comandos.push(novoComando);
+    if (adicionarNovoLoop) {
+        loopAtual = novoLoop;
+    }
 }
 
 function executarLoop(loop) {
     for (let i = 0; i < loop.repeticoes; i++) {
         for (let j = 0; j < loop.comandos.length; j++) {
-            loop.comandos[j].executar()
+            console.log(comandos[j].nome);
+            loop.comandos[j].executar();
         }
     }
 }
