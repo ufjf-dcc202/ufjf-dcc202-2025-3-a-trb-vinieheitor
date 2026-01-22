@@ -10,6 +10,14 @@ let loopAtual = loopPrincipal;
 
 let luzesFaltamAcender = 0;
 
+const comandos = {
+    MOVE_FRENTE : 0,
+    VIRA_HORARIO : 1,
+    VIRA_ANTI_HORARIO : 2,
+    ABRE_LOOP : 3,
+    FECHA_LOOP : 4
+};
+
 let robo = {
     posX: 0,
     posY: 0,
@@ -132,7 +140,7 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
     let adicionarNovoLoop = false;
     let novoLoop = {};
     switch (idDoComando) {
-        case "moveFrente":
+        case comandos.MOVE_FRENTE:
             novoComando = {
                 nome : "Mover para frente",
                 executar : function() {
@@ -141,7 +149,7 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
             };
             break;
 
-        case "viraHorario":
+        case comandos.VIRA_HORARIO:
             novoComando = {
                 nome : "Girar no sentido horário",
                 executar : function() {
@@ -149,7 +157,7 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
                 }
             };
             break;
-        case "viraAntiHorario":
+        case comandos.VIRA_ANTI_HORARIO:
             novoComando = {
                 nome : "Girar no sentido antihorário",
                 executar : function() {
@@ -157,12 +165,12 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
                 }
             };
             break;
-        case "abreLoop":
+        case comandos.ABRE_LOOP:
             adicionarNovoLoop = true;
             novoComando = {
                 nome : "Abrir novo Loop",
                 novoLoop : {
-                    comandos : [{}],
+                    comandos : [],
                     repeticoes : repeticoesLoop,
                     loopSuperior : loopAtual
                 },
@@ -172,27 +180,39 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
             }
             novoLoop = novoComando.novoLoop;
             break;
-        case "fechaLoop":
+        case comandos.FECHA_LOOP:
             adicionarNovoLoop = true;
             novoLoop = loopAtual.loopSuperior;
             novoComando = {
-                nome : "Fechar Loop",
-                executar : function() {}
-            };
+                nome : "Fechar loop",
+                executar : function () {
+
+                }
+            }; 
             break;
     }
 
-    loopAtual.comandos.push(novoComando);
+    if (novoComando != {}) {
+        loopAtual.comandos.push(novoComando);
+    }
+
     if (adicionarNovoLoop) {
         loopAtual = novoLoop;
     }
 }
 
 function executarLoop(loop) {
+    console.log(loop);
     for (let i = 0; i < loop.repeticoes; i++) {
         for (let j = 0; j < loop.comandos.length; j++) {
-            console.log(comandos[j].nome);
             loop.comandos[j].executar();
         }
     }
+}
+
+function test() {
+    adicionarComando(comandos.ABRE_LOOP, 5);
+    adicionarComando(comandos.MOVE_FRENTE);
+    adicionarComando(comandos.FECHA_LOOP);
+    executarLoop(loopPrincipal);
 }
