@@ -14,8 +14,10 @@ const comandos = {
     MOVE_FRENTE : 0,
     VIRA_HORARIO : 1,
     VIRA_ANTI_HORARIO : 2,
-    ABRE_LOOP : 3,
-    FECHA_LOOP : 4
+    ACENDE_LUZ : 3,
+    PULA : 4,
+    ABRE_LOOP : 5,
+    FECHA_LOOP : 6
 };
 
 let robo = {
@@ -27,6 +29,31 @@ let robo = {
         this.quadrado = document.getElementById(robo.posY + "," + robo.posX);
     }
 };
+
+const moveFrenteBtn = document.getElementById("moveFrenteBtn");
+moveFrenteBtn.addEventListener("click", function() {adicionarComando(comandos.MOVE_FRENTE)});
+
+const viraHorarioBtn = document.getElementById("viraHorarioBtn");
+viraHorarioBtn.addEventListener("click", function() {adicionarComando(comandos.VIRA_HORARIO)});
+
+const viraAntiHorarioBtn = document.getElementById("viraAntiHorarioBtn");
+viraAntiHorarioBtn.addEventListener("click", function() {adicionarComando(comandos.VIRA_ANTI_HORARIO)});
+
+const acendeLuzBtn = document.getElementById("acendeLuzBtn");
+acendeLuzBtn.addEventListener("click", function() {adicionarComando(comandos.ACENDE_LUZ)});
+
+const pulaBtn = document.getElementById("pulaBtn");
+pulaBtn.addEventListener("click", function() {adicionarComando(comandos.PULA)});
+
+const abreLoopBtn = document.getElementById("abreLoopBtn");
+abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE_LOOP)});
+
+const fechaLoopBtn = document.getElementById("fechaLoopBtn");
+fechaLoopBtn.addEventListener("click", function() {adicionarComando(comandos.FECHA_LOOP)});
+
+function alerta() {
+    alert("oiii");
+}
 
 carregarNivel("nivel1.txt");
 
@@ -123,7 +150,7 @@ function viraAntiHorario(){
     rotacionarImagemDoRobo();
 }
 
-function acenderLuz() {
+function acendeLuz() {
     let quadradoClass = robo.quadrado.classList;
     if (quadradoClass.contains("luz")) {
         luzesFaltamAcender--;
@@ -136,6 +163,7 @@ function acenderLuz() {
 }
 
 function adicionarComando(idDoComando, repeticoesLoop = 1) {
+    console.log(idDoComando);
     let novoComando;
     let adicionarNovoLoop = false;
     let novoLoop = {};
@@ -164,6 +192,10 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
                     viraAntiHorario()
                 }
             };
+            break;
+        case comandos.ACENDE_LUZ:
+            break;
+        case comandos.PULA:
             break;
         case comandos.ABRE_LOOP:
             adicionarNovoLoop = true;
