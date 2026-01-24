@@ -106,6 +106,8 @@ function carregarNivel(arquivo) {
      .then((text) => {
         let trimmed_text = text.replace(/\s/g, '');
         iniciarTabuleiro(trimmed_text.split(''));
+        robo.angulo = 270;
+        rotacionarImagemDoRobo();
     })
      .catch((e) => console.error(e));
 }
@@ -275,6 +277,10 @@ function executarLoop(loop) {
     }
     if (confirm("Ir para a próxima fase?")) {
         proximaFase();
+    }
+    else{
+        limparFase();
+        carregarNivel("nivel" + nivel + ".txt");
     }
 }
 
