@@ -101,7 +101,7 @@ function iniciarTabuleiro(nivel) {
 }
 
 function carregarNivel(arquivo) {
-    fetch("nivel1.txt")
+    fetch(arquivo)
      .then((res) => res.text())
      .then((text) => {
         let trimmed_text = text.replace(/\s/g, '');
@@ -280,6 +280,7 @@ function executarLoop(loop) {
 
 function proximaFase() {
     if (nivel < 3) {
+        limparFase();
         nivel++;
         carregarNivel("nivel" + nivel + ".txt");
     }
@@ -287,15 +288,20 @@ function proximaFase() {
 
 function faseAnterior() {
     if (nivel > 1) {
+        limparFase();
         nivel--;
         carregarNivel("nivel" + nivel + ".txt");
     }
 }
 
 function reiniciarFase() {
+    limparFase(); 
+    carregarNivel("nivel" + nivel + ".txt");
+}
+
+function limparFase() {
     limparComandos();
     tabuleiroDoc.innerHTML = "";
-    carregarNivel("nivel" + nivel + ".txt");
 }
 
 function limparComandos() {
