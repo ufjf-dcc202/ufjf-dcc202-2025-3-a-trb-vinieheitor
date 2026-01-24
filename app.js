@@ -1,6 +1,8 @@
 let tamanhoTabuleiro = 10;
 let quadradosTabuleiro = [];
 
+let nivel = 1;
+
 let loopPrincipal = {
     comandos : [],
     repeticoes : 1,
@@ -54,15 +56,11 @@ const fechaLoopBtn = document.getElementById("fechaLoopBtn");
 fechaLoopBtn.addEventListener("click", function() {adicionarComando(comandos.FECHA_LOOP)});
 
 const lista = document.getElementById("lista");
-
-function alerta() {
-    alert("oiii");
-}
+const tabuleiroDoc = document.getElementById("tabuleiro");
 
 carregarNivel("nivel1.txt");
 
 function iniciarTabuleiro(nivel) {
-    let tabuleiroDoc = document.getElementById("tabuleiro");
     let novoTabuleiroHTML = "";
     for (let i = 0; i < tamanhoTabuleiro; i++) {
         novoTabuleiroHTML += "\n<tr class='linha'>"
@@ -136,14 +134,9 @@ function moveFrente(pula = false){
         posY : robo.posY + novaPosY,
     };
     let quadradoHTML = document.getElementById(novoQuadrado.posY + "," + novoQuadrado.posX);
-    console.log(quadradoHTML);
 
-    if(novoQuadrado.posX >= tamanhoTabuleiro || novoQuadrado.posX < 0 || 
-     (quadradoHTML.classList.contains("parede")) && !pula) {
+    if(quadradoHTML == null || (quadradoHTML.classList.contains("parede")) && !pula) {
         novoQuadrado.posX = robo.posX;
-    }
-    if(novoQuadrado.posY >= tamanhoTabuleiro || novoQuadrado.posY < 0 || 
-     (quadradoHTML.classList.contains("parede")) && !pula){
         novoQuadrado.posY = robo.posY;
     }
 
@@ -173,9 +166,6 @@ function acendeLuz() {
         luzesFaltamAcender--;
         robo.quadrado.classList.remove("luz");
         robo.quadrado.classList.add("apagado");
-        if (luzesFaltamAcender == 0) {
-            alert("VOCÊ GANHOU!!!!");
-        }
     }
 }
 
@@ -270,14 +260,50 @@ function executarLoop(loop) {
             loop.comandos[j].executar();
         }
     }
+    if (luzesFaltamAcender <= 0) {
+        alert("Você venceu a fase!");
+        if (nivel == 3) {
+            alert("Parabéns! Você ganhou o jogo!")
+            return;
+        }
+    }
+    else {
+        alert("Você perdeu a fase!");
+        if (nivel == 3) {
+            return;
+        }
+    }
+    if (confirm("Ir para a próxima fase?")) {
+        proximaFase();
+    }
+}
+
+function proximaFase() {
+    if (nivel < 3) {
+        nivel++;
+        carregarNivel("nivel" + nivel + ".txt");
+    }
+}
+
+function faseAnterior() {
+    if (nivel > 1) {
+        nivel--;
+        carregarNivel("nivel" + nivel + ".txt");
+    }
+}
+
+function reiniciarFase() {
+    limparComandos();
+    tabuleiroDoc.innerHTML = "";
+    carregarNivel("nivel" + nivel + ".txt");
 }
 
 function limparComandos() {
-    let loopPrincipal = {
+    loopPrincipal = {
         comandos : [],
         repeticoes : 1,
         loopSuperior : {}
     };
-    let loopAtual = loopPrincipal;
+    loopAtual = loopPrincipal;
     lista.innerHTML = "";
 }
