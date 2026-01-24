@@ -79,6 +79,10 @@ function iniciarTabuleiro(nivel) {
                     classes += " luz";
                     luzesFaltamAcender++;
                     break;
+                case "3":
+                    classes += " plano";
+                    robo.posX = i;
+                    robo.posY = j;
             }
             novoTabuleiroHTML += "\n<td class='" + classes + "' id='" + id + "'></td>";
             let novoQuadrado = {
@@ -124,17 +128,24 @@ function rotacionarImagemDoRobo() {
 function moveFrente(){
     novaPosX = Math.round(Math.cos(robo.angulo * Math.PI/180));
     novaPosY = Math.round(-Math.sin(robo.angulo*Math.PI /180));
-    if(robo.posX + novaPosX >= tamanhoTabuleiro || robo.posX + novaPosX < 0) {
-        novaPosX = 0;
+    let novoQuadrado = {
+        posX : robo.posX + novaPosX,
+        posY : robo.posY + novaPosY,
+    };
+    let quadradoHTML = document.getElementById(novoQuadrado.posY + "," + novoQuadrado.posX);
+    console.log(quadradoHTML);
+
+    if(novoQuadrado.posX >= tamanhoTabuleiro || novoQuadrado.posX < 0 || quadradoHTML.classList.contains("parede")) {
+        novoQuadrado.posX = robo.posX;
     }
-    if(robo.posY + novaPosY >= tamanhoTabuleiro || robo.posY + novaPosY < 0) {
-        novaPosY = 0;
+    if(novoQuadrado.posY >= tamanhoTabuleiro || novoQuadrado.posY < 0 || quadradoHTML.classList.contains("parede")) {
+        novoQuadrado.posY = robo.posY;
     }
 
     removerImagemDoRobo();
 
-    robo.posX += novaPosX;
-    robo.posY += novaPosY;
+    robo.posX = novoQuadrado.posX;
+    robo.posY = novoQuadrado.posY;
 
     robo.setQuadrado();
     adicionarImagemDoRobo();
