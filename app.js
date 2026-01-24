@@ -117,7 +117,7 @@ function removerImagemDoRobo() {
 }
 
 function adicionarImagemDoRobo() {
-    robo.quadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo'>";
+    robo.quadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo' style='height: 100%; width: 100%;'>";
     rotacionarImagemDoRobo();
 }
 

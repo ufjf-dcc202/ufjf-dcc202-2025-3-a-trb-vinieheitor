@@ -43,3 +43,7 @@ button {
     width: 150px;
     height: 50px;
 }
+button:hover {
+    background-color: black;
+    color: white;
+}
