@@ -46,7 +46,8 @@ const pulaBtn = document.getElementById("pulaBtn");
 pulaBtn.addEventListener("click", function() {adicionarComando(comandos.PULA)});
 
 const abreLoopBtn = document.getElementById("abreLoopBtn");
-abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE_LOOP)});
+const repeticoesLoop = document.getElementById("repeticoesLoop");
+abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE_LOOP, repeticoesLoop.value)});
 
 const fechaLoopBtn = document.getElementById("fechaLoopBtn");
 fechaLoopBtn.addEventListener("click", function() {adicionarComando(comandos.FECHA_LOOP)});
@@ -194,6 +195,12 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
             };
             break;
         case comandos.ACENDE_LUZ:
+            novoComando = {
+                nome : "Acender luz",
+                executar : function() {
+                    acendeLuz()
+                }
+            };
             break;
         case comandos.PULA:
             break;
