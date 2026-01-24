@@ -8,30 +8,43 @@
 </head>
 <body>
    <main>
-    <div>
+    <div class = "fundoComandosPrincipais">
+        <div class="comandosPrincipais">
+            <button onclick="executarLoop(loopPrincipal)">Executar comandos</button>
+            <button onclick="limparComandos()">Limpar comandos</button>
+        </div>
+    </div>
+    <div class = fundoLista>
+        <p>Lista dos Comandos</p>
+        <div class="lista" id="lista">
+        </div>
+    </div>
+
+    <div class="fundoTabuleiro">
         <table class = "tabuleiro" id="tabuleiro">
         </table>
     </div>
-    <div>
-        <button onclick="executarLoop(loopPrincipal)">Executar comandos</button>
-        <button onclick="limparComandos()">Limpar comandos</button>
+    
+    <div class = "fundoComandos">
+        <p> Comandos: </p>
+        <div class="comandos" id="comandos">
+           <button id="moveFrenteBtn">Mover para frente</button> 
+           <button id="viraHorarioBtn">Virar 90 graus no sentido horário</button>
+           <button id="viraAntiHorarioBtn">Virar 90 graus no sentido anti-horário</button>
+           <button id="acendeLuzBtn">Acender Luz</button>
+           <button id="pulaBtn">Pular</button>
+           <button id="abreLoopBtn">Abrir loop</button>
+           <input type="number" min="1" id="repeticoesLoop">
+           <button id="fechaLoopBtn">Fechar loop</button>
+        </div>
     </div>
-    <div id="comandos">
-       <button id="moveFrenteBtn">Mover para frente</button> 
-       <button id="viraHorarioBtn">Virar 90 graus no sentido horário</button>
-       <button id="viraAntiHorarioBtn">Virar 90 graus no sentido anti-horário</button>
-       <button id="acendeLuzBtn">Acender Luz</button>
-       <button id="pulaBtn">Pular</button>
-       <button id="abreLoopBtn">Abrir loop</button>
-       <input type="number" min="1" id="repeticoesLoop">
-       <button id="fechaLoopBtn">Fechar loop</button>
-       
-    </div>
+    
+    <footer>
+        <p>Feito por Vinícius da Rocha Tarelho e Heitor Tetzner Pereira para o trabalho da disciplina DCC202</p>
+    </footer>
+   
+</main>
 
-    <div id="lista">
-
-    </div>
-   </main> 
 <script src="app.js"></script>
 </body>
 </html>

@@ -1,19 +1,47 @@
+body {
+    margin: 0px;
+    background-color: black;
+}
 main {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template: auto 1fr auto / auto 1fr auto;
+}
+.fundoComandosPrincipais{
+    padding: 2rem;
+    grid-column: 1 / 4;
+    background-color: grey;
+}
+.comandosPrincipais {
+    padding: 2rem;
+    grid-column: 1 / 4;
+    background-color: grey;
+    display:flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
 }
 
-.tabuleiro {
-    border-spacing: 0;
-    margin: 20px;
-}
+.fundoLista {
+    grid-column: 1 / 2;
+    background-color: cornsilk;
+    place-items: center;
+  }
 
+.fundoTabuleiro {
+    grid-column: 2 / 3;
+    background-color: cornsilk;
+    width: 100%;
+    height: 100%;
+    min-width: 600px;
+    min-height: 600px;
+    display: grid;
+    place-items: center;
+}
 .quadrado {
     border: 1px solid;
-    width: 3em;
-    height: 3em;
+    width: 60px;
+    height: 60px;
 }
-
 .plano {
     background-color: gray;
 }
@@ -29,15 +57,16 @@ main {
 .apagado {
     background-color: darkslategrey;
 }
-
-#comandos {
+.fundoComandos {
+    grid-column: 3 / 4;
+    background-color: cornsilk;
+}
+.comandos {
     display: flex;
     margin: 20px;
     gap: 1em;
     flex-direction: column;
-    border: 1px solid;
 }
-
 button {
     padding: 5px 15px;
     width: 150px;
@@ -47,3 +76,8 @@ button:hover {
     background-color: black;
     color: white;
 }
+footer {
+    grid-column: 1 / 4;
+    background-color: black;
+    color: white;
+  }
