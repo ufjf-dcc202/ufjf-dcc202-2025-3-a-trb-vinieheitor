@@ -47,10 +47,13 @@ pulaBtn.addEventListener("click", function() {adicionarComando(comandos.PULA)});
 
 const abreLoopBtn = document.getElementById("abreLoopBtn");
 const repeticoesLoop = document.getElementById("repeticoesLoop");
+repeticoesLoop.value = 1;
 abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE_LOOP, repeticoesLoop.value)});
 
 const fechaLoopBtn = document.getElementById("fechaLoopBtn");
 fechaLoopBtn.addEventListener("click", function() {adicionarComando(comandos.FECHA_LOOP)});
+
+const lista = document.getElementById("lista");
 
 function alerta() {
     alert("oiii");
@@ -125,7 +128,7 @@ function rotacionarImagemDoRobo() {
     imagemRobo.style.transform = "rotate(" + -robo.angulo + "deg)";
 }
 
-function moveFrente(){
+function moveFrente(pula = false){
     novaPosX = Math.round(Math.cos(robo.angulo * Math.PI/180));
     novaPosY = Math.round(-Math.sin(robo.angulo*Math.PI /180));
     let novoQuadrado = {
@@ -135,10 +138,12 @@ function moveFrente(){
     let quadradoHTML = document.getElementById(novoQuadrado.posY + "," + novoQuadrado.posX);
     console.log(quadradoHTML);
 
-    if(novoQuadrado.posX >= tamanhoTabuleiro || novoQuadrado.posX < 0 || quadradoHTML.classList.contains("parede")) {
+    if(novoQuadrado.posX >= tamanhoTabuleiro || novoQuadrado.posX < 0 || 
+     (quadradoHTML.classList.contains("parede")) && !pula) {
         novoQuadrado.posX = robo.posX;
     }
-    if(novoQuadrado.posY >= tamanhoTabuleiro || novoQuadrado.posY < 0 || quadradoHTML.classList.contains("parede")) {
+    if(novoQuadrado.posY >= tamanhoTabuleiro || novoQuadrado.posY < 0 || 
+     (quadradoHTML.classList.contains("parede")) && !pula){
         novoQuadrado.posY = robo.posY;
     }
 
@@ -174,15 +179,15 @@ function acendeLuz() {
     }
 }
 
+
 function adicionarComando(idDoComando, repeticoesLoop = 1) {
-    console.log(idDoComando);
     let novoComando;
     let adicionarNovoLoop = false;
     let novoLoop = {};
     switch (idDoComando) {
         case comandos.MOVE_FRENTE:
+            lista.innerHTML += "<p>Mover para frente</p>\n";
             novoComando = {
-                nome : "Mover para frente",
                 executar : function() {
                     moveFrente()
                 } 
@@ -190,35 +195,41 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
             break;
 
         case comandos.VIRA_HORARIO:
+            lista.innerHTML += "<p>Virar 90 graus no sentido horário</p>\n";
             novoComando = {
-                nome : "Girar no sentido horário",
                 executar : function() {
                     viraHorario()
                 }
             };
             break;
         case comandos.VIRA_ANTI_HORARIO:
+            lista.innerHTML += "<p>Virar 90 graus no sentido anti-horário</p>\n";
             novoComando = {
-                nome : "Girar no sentido antihorário",
                 executar : function() {
                     viraAntiHorario()
                 }
             };
             break;
         case comandos.ACENDE_LUZ:
+            lista.innerHTML += "<p>Acender luz</p>\n";
             novoComando = {
-                nome : "Acender luz",
                 executar : function() {
                     acendeLuz()
                 }
             };
             break;
         case comandos.PULA:
+            lista.innerHTML += "<p>Pula</p>\n";
+            novoComando = {
+                executar : function() {
+                    moveFrente(true)
+                } 
+            };
             break;
         case comandos.ABRE_LOOP:
+            lista.innerHTML += "<p>Abrir loop (" + repeticoesLoop + ")</p>\n";
             adicionarNovoLoop = true;
             novoComando = {
-                nome : "Abrir novo Loop",
                 novoLoop : {
                     comandos : [],
                     repeticoes : repeticoesLoop,
@@ -231,6 +242,7 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
             novoLoop = novoComando.novoLoop;
             break;
         case comandos.FECHA_LOOP:
+            lista.innerHTML += "<p>Fecha loop</p>\n";
             adicionarNovoLoop = true;
             novoLoop = loopAtual.loopSuperior;
             novoComando = {
@@ -260,9 +272,12 @@ function executarLoop(loop) {
     }
 }
 
-function test() {
-    adicionarComando(comandos.ABRE_LOOP, 5);
-    adicionarComando(comandos.MOVE_FRENTE);
-    adicionarComando(comandos.FECHA_LOOP);
-    executarLoop(loopPrincipal);
+function limparComandos() {
+    let loopPrincipal = {
+        comandos : [],
+        repeticoes : 1,
+        loopSuperior : {}
+    };
+    let loopAtual = loopPrincipal;
+    lista.innerHTML = "";
 }
