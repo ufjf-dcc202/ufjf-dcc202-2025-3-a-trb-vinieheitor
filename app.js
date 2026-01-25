@@ -121,27 +121,12 @@ function carregarNivel(arquivo) {
      .then((text) => {
         let trimmed_text = text.replace(/\s/g, '');
         iniciarTabuleiro(trimmed_text.split(''));
+        robo.setQuadrado();
         robo.angulo = 270;
-        rotacionarImagemDoRobo();
+        robo.adicionarImagem();
         faseHeader.innerHTML = "Fase " + nivel;
     })
      .catch((e) => console.error(e));
-}
-
-
-
-function removerImagemDoRobo() {
-    robo.quadrado.innerHTML = "";
-}
-
-function adicionarImagemDoRobo() {
-    robo.quadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo' style='height: 100%; width: 100%;'>";
-    rotacionarImagemDoRobo();
-}
-
-function rotacionarImagemDoRobo() {
-    let imagemRobo = document.getElementById("imagemRobo");
-    imagemRobo.style.transform = "rotate(" + -robo.angulo + "deg)";
 }
 
 function moveFrente(pula = false){
@@ -158,24 +143,22 @@ function moveFrente(pula = false){
         novoQuadrado.posY = robo.posY;
     }
 
-    removerImagemDoRobo();
-
     robo.posX = novoQuadrado.posX;
     robo.posY = novoQuadrado.posY;
 
+    robo.removerImagem();
     robo.setQuadrado();
-    adicionarImagemDoRobo();
-    
-    }
+    robo.adicionarImagem();
+}
 
 function viraHorario(){
     robo.angulo -= 90;
-    rotacionarImagemDoRobo();
+    robo.rotationarImagem();
 }
 
 function viraAntiHorario(){
     robo.angulo += 90;
-    rotacionarImagemDoRobo();
+    robo.rotationarImagem();
 }
 
 function acendeLuz() {
