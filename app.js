@@ -82,8 +82,8 @@ function iniciarTabuleiro(nivel) {
                     break;
                 case "3":
                     classes += " plano";
-                    robo.posX = i;
-                    robo.posY = j;
+                    robo.posX = j;
+                    robo.posY = i;
             }
             novoTabuleiroHTML += "\n<td class='" + classes + "' id='" + id + "'></td>";
             let novoQuadrado = {
