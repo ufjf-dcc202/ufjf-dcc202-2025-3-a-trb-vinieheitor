@@ -77,6 +77,7 @@ carregarNivel("nivel1.txt");
 
 function iniciarTabuleiro(nivel) {
     let novoTabuleiroHTML = "";
+    luzesFaltamAcender = 0;
     for (let i = 0; i < tamanhoTabuleiro; i++) {
         novoTabuleiroHTML += "\n<tr class='linha'>"
         for (let j = 0; j < tamanhoTabuleiro; j++) {
@@ -153,12 +154,12 @@ function moveFrente(pula = false){
 
 function viraHorario(){
     robo.angulo -= 90;
-    robo.rotationarImagem();
+    robo.rotacionarImagem();
 }
 
 function viraAntiHorario(){
     robo.angulo += 90;
-    robo.rotationarImagem();
+    robo.rotacionarImagem();
 }
 
 function acendeLuz() {
