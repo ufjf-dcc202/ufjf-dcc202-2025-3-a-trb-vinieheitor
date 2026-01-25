@@ -296,6 +296,9 @@ function proximaFase() {
         nivel++;
         carregarNivel("nivel" + nivel + ".txt");
     }
+    else {
+        alert("Não há fases depois desta!");
+    }
 }
 
 async function executarLoopInterno(loop) {
@@ -314,6 +317,9 @@ function faseAnterior() {
         limparFase();
         nivel--;
         carregarNivel("nivel" + nivel + ".txt");
+    }
+    else {
+        alert("Não há fases antes desta!");
     }
 }
 
