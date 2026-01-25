@@ -112,7 +112,6 @@ function iniciarTabuleiro(nivel) {
     tabuleiroDoc.innerHTML += novoTabuleiroHTML;
 
     robo.setQuadrado();
-    adicionarImagemDoRobo();
 }
 
 function carregarNivel(arquivo) {
@@ -128,6 +127,7 @@ function carregarNivel(arquivo) {
     })
      .catch((e) => console.error(e));
 }
+
 
 function moveFrente(pula = false){
     novaPosX = Math.round(Math.cos(robo.angulo * Math.PI/180));
