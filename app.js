@@ -272,6 +272,7 @@ async function executarLoopExterno(loop) {
         alert("Você venceu a fase!");
         if (nivel == 3) {
             alert("Parabéns! Você ganhou o jogo!")
+            window.location.href = "telafinal.html";
             return;
         }
     }
