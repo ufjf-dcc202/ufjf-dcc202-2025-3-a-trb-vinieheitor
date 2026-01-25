@@ -227,8 +227,9 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
                     repeticoes : repeticoesLoop,
                     loopSuperior : loopAtual
                 },
-                executar : function() {
-                    executarLoop(this.novoLoop)
+                executar : async function() {
+                    executarLoop = executarLoopInterno(this.novoLoop);
+                    await executarLoop;
                 }
             }
             novoLoop = novoComando.novoLoop;
@@ -254,12 +255,17 @@ function adicionarComando(idDoComando, repeticoesLoop = 1) {
         loopAtual = novoLoop;
     }
 }
-
-function executarLoop(loop) {
+function pausa()
+{
+    return new Promise(resolve => setTimeout(resolve,500));
+}
+async function executarLoopExterno(loop) {
     console.log(loop);
     for (let i = 0; i < loop.repeticoes; i++) {
         for (let j = 0; j < loop.comandos.length; j++) {
-            loop.comandos[j].executar();
+            executar = loop.comandos[j].executar();
+            await executar;
+            await pausa();
         }
     }
     if (luzesFaltamAcender <= 0) {
@@ -290,6 +296,17 @@ function proximaFase() {
         nivel++;
         carregarNivel("nivel" + nivel + ".txt");
     }
+}
+
+async function executarLoopInterno(loop) {
+    console.log(loop);
+    for (let i = 0; i < loop.repeticoes; i++) {
+        for (let j = 0; j < loop.comandos.length; j++) {
+            loop.comandos[j].executar();
+            await pausa();
+        }
+    }
+    return;
 }
 
 function faseAnterior() {
