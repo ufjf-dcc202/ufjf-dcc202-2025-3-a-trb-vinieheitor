@@ -277,6 +277,8 @@ async function executarLoopExterno(loop) {
     else {
         alert("Você perdeu a fase!");
         if (nivel == 3) {
+            limparFase();
+            carregarNivel("nivel" + nivel + ".txt");
             return;
         }
     }
