@@ -29,8 +29,22 @@ let robo = {
     quadrado: null,
     setQuadrado : function () {
         this.quadrado = document.getElementById(robo.posY + "," + robo.posX);
+    },
+    removerImagem : function() {
+        if (this.quadrado != null) {
+            this.quadrado.innerHTML = "";
+        }
+    },
+    adicionarImagem : function() {
+        this.quadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo' style='height: 100%; width: 100%;'>";
+        this.rotacionarImagem();
+    },
+    rotacionarImagem : function() {
+        let imagem = document.getElementById("imagemRobo");
+        imagem.style.transform = "rotate(" + -this.angulo + "deg)";
     }
 };
+
 
 const moveFrenteBtn = document.getElementById("moveFrenteBtn");
 moveFrenteBtn.addEventListener("click", function() {adicionarComando(comandos.MOVE_FRENTE)});
