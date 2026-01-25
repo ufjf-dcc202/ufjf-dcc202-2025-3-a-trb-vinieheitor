@@ -57,6 +57,7 @@ fechaLoopBtn.addEventListener("click", function() {adicionarComando(comandos.FEC
 
 const lista = document.getElementById("lista");
 const tabuleiroDoc = document.getElementById("tabuleiro");
+const faseHeader = document.getElementById("faseHeader");
 
 carregarNivel("nivel1.txt");
 
@@ -108,6 +109,7 @@ function carregarNivel(arquivo) {
         iniciarTabuleiro(trimmed_text.split(''));
         robo.angulo = 270;
         rotacionarImagemDoRobo();
+        faseHeader.innerHTML = "Fase " + nivel;
     })
      .catch((e) => console.error(e));
 }
