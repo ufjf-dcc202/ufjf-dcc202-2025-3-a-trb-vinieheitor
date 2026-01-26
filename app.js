@@ -159,6 +159,9 @@ function moveFrente(pula = false){
         posY : robo.posY + novaPosY,
     };
     let quadradoHTML = document.getElementById(novoQuadrado.posY + "," + novoQuadrado.posX);
+    if(quadradoHTML == null) {
+        return;
+    }
     
     if(quadradoHTML.classList.contains("borda"))
     {
@@ -170,9 +173,8 @@ function moveFrente(pula = false){
         return;
     }
     
-    if(quadradoHTML == null || (quadradoHTML.classList.contains("parede")) && !pula) {
-        novoQuadrado.posX = robo.posX;
-        novoQuadrado.posY = robo.posY;
+    if(quadradoHTML.classList.contains("parede" && !pula)) {
+        return;
     }
 
     robo.posX = novoQuadrado.posX;
@@ -340,7 +342,8 @@ async function executarLoopInterno(loop) {
     console.log(loop);
     for (let i = 0; i < loop.repeticoes; i++) {
         for (let j = 0; j < loop.comandos.length; j++) {
-            loop.comandos[j].executar();
+            executar = loop.comandos[j].executar();
+            await executar;
             await pausa();
         }
     }
