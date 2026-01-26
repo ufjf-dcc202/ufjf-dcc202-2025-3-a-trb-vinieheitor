@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo estilo Lightbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <main>
+    <header>
+        <p id="faseHeader">Fase X</p>
+    </header>
+    <div class = "fundoComandosPrincipais">
+        <div class="comandosPrincipais">
+            <button id='executarLoopExterno' onclick="executarLoopExterno(loopPrincipal)">Executar comandos</button>
+            <button id='limparComandos' onclick="limparComandos()">Limpar comandos</button>
+            <button id='proximaFase' onclick="proximaFase()">Próxima fase</button>
+            <button id='faseAnterior' onclick="faseAnterior()">Fase anterior</button>
+        </div>
+    </div>
+    <div class = fundoLista>
+        <p>Lista dos Comandos</p>
+        <div class="lista" id="lista">
+        </div>
+    </div>
+
+    <div class="fundoTabuleiro">
+        <table class = "tabuleiro" id="tabuleiro">
+        </table>
+    </div>
+    
+    <div class = "fundoComandos">
+        <p> Comandos: </p>
+        <div class="comandos" id="comandos">
+           <button id="moveFrenteBtn">Mover para frente</button> 
+           <button id="viraHorarioBtn">Virar 90 graus no sentido horário</button>
+           <button id="viraAntiHorarioBtn">Virar 90 graus no sentido anti-horário</button>
+           <button id="acendeLuzBtn">Acender Luz</button>
+           <button id="pulaBtn">Pular</button>
+           <button id="abreLoopBtn">Abrir loop</button>
+           <input type="number" min="1" id="repeticoesLoop">
+           <button id="fechaLoopBtn">Fechar loop</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Feito por Vinícius da Rocha Tarelho e Heitor Tetzner Pereira para o trabalho da disciplina DCC202</p>
+    </footer>
+   
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
