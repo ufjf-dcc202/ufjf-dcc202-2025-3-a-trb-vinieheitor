@@ -62,9 +62,11 @@ const pulaBtn = document.getElementById("pulaBtn");
 pulaBtn.addEventListener("click", function() {adicionarComando(comandos.PULA)});
 
 const abreLoopBtn = document.getElementById("abreLoopBtn");
+abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE_LOOP, repeticoesLoop.value)});
+
 const repeticoesLoop = document.getElementById("repeticoesLoop");
 repeticoesLoop.value = 1;
-abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE_LOOP, repeticoesLoop.value)});
+
 
 const fechaLoopBtn = document.getElementById("fechaLoopBtn");
 fechaLoopBtn.addEventListener("click", function() {adicionarComando(comandos.FECHA_LOOP)});
@@ -114,7 +116,21 @@ function iniciarTabuleiro(nivel) {
 
     robo.setQuadrado();
 }
-
+function desabilitarBotões(valor)
+{
+    document.getElementById("executarLoopExterno").disabled = valor;
+    document.getElementById("limparComandos").disabled = valor;
+    document.getElementById("proximaFase").disabled = valor;
+    document.getElementById("faseAnterior").disabled = valor;
+    moveFrenteBtn.disabled = valor;
+    viraAntiHorarioBtn.disabled = valor;
+    viraHorarioBtn.disabled = valor;
+    acendeLuzBtn.disabled = valor;
+    pulaBtn.disabled = valor;
+    abreLoopBtn.disabled = valor;
+    repeticoesLoop.disabled = valor;
+    fechaLoopBtn.disabled = valor;
+}
 function carregarNivel(arquivo) {
     fetch(arquivo)
      .then((res) => res.text())
@@ -125,6 +141,7 @@ function carregarNivel(arquivo) {
         robo.angulo = 270;
         robo.adicionarImagem();
         faseHeader.innerHTML = "Fase " + nivel;
+        desabilitarBotões(false);
     })
      .catch((e) => console.error(e));
 }
@@ -260,6 +277,7 @@ function pausa()
     return new Promise(resolve => setTimeout(resolve,500));
 }
 async function executarLoopExterno(loop) {
+    desabilitarBotões(true);
     console.log(loop);
     for (let i = 0; i < loop.repeticoes; i++) {
         for (let j = 0; j < loop.comandos.length; j++) {
