@@ -36,7 +36,7 @@ let robo = {
         }
     },
     adicionarImagem : function() {
-        this.quadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo' style='height: 100%; width: 100%;'>";
+        this.quadrado.innerHTML += "<img src='robot_3Dblue.png' id='imagemRobo' style='height: 90%; width: 90%;'>";
         this.rotacionarImagem();
     },
     rotacionarImagem : function() {
@@ -102,6 +102,10 @@ function iniciarTabuleiro(nivel) {
                     classes += " plano";
                     robo.posX = j;
                     robo.posY = i;
+                    break;
+                case "4":
+                    classes += " borda";
+                    break;
             }
             novoTabuleiroHTML += "\n<td class='" + classes + "' id='" + id + "'></td>";
             let novoQuadrado = {
@@ -155,7 +159,17 @@ function moveFrente(pula = false){
         posY : robo.posY + novaPosY,
     };
     let quadradoHTML = document.getElementById(novoQuadrado.posY + "," + novoQuadrado.posX);
-
+    
+    if(quadradoHTML.classList.contains("borda"))
+    {
+        return;
+    }
+    
+    if(quadradoHTML.classList.contains("plano") && pula)
+    {
+        return;
+    }
+    
     if(quadradoHTML == null || (quadradoHTML.classList.contains("parede")) && !pula) {
         novoQuadrado.posX = robo.posX;
         novoQuadrado.posY = robo.posY;

@@ -60,12 +60,19 @@ main {
     width: 60px;
     height: 60px;
 }
+#imagemRobo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 .plano {
     background-color: gray;
 }
-
+.borda {
+    background-color: whitesmoke;
+}
 .parede {
-    background-color: darkgreen;
+    background-color: rgb(43, 43, 43);
 }
 
 .luz {
@@ -75,6 +82,7 @@ main {
 .apagado {
     background-color: darkslategrey;
 }
+
 .fundoComandos {
     grid-column: 3 / 4;
     background-color: cornsilk;
