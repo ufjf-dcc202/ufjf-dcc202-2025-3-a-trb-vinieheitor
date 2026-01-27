@@ -46,20 +46,11 @@ let robo = {
 };
 
 
-const moveFrenteBtn = document.getElementById("moveFrenteBtn");
-moveFrenteBtn.addEventListener("click", function() {adicionarComando(comandos.MOVE_FRENTE)});
-
-const viraHorarioBtn = document.getElementById("viraHorarioBtn");
-viraHorarioBtn.addEventListener("click", function() {adicionarComando(comandos.VIRA_HORARIO)});
-
-const viraAntiHorarioBtn = document.getElementById("viraAntiHorarioBtn");
-viraAntiHorarioBtn.addEventListener("click", function() {adicionarComando(comandos.VIRA_ANTI_HORARIO)});
-
-const acendeLuzBtn = document.getElementById("acendeLuzBtn");
-acendeLuzBtn.addEventListener("click", function() {adicionarComando(comandos.ACENDE_LUZ)});
-
-const pulaBtn = document.getElementById("pulaBtn");
-pulaBtn.addEventListener("click", function() {adicionarComando(comandos.PULA)});
+const moveFrenteBtn = addBtn("moveFrenteBtn", comandos.MOVE_FRENTE);
+const viraHorarioBtn = addBtn("viraHorarioBtn", comandos.VIRA_HORARIO);
+const viraAntiHorarioBtn = addBtn("viraAntiHorarioBtn", comandos.VIRA_ANTI_HORARIO);
+const acendeLuzBtn = addBtn("acendeLuzBtn", comandos.ACENDE_LUZ);
+const pulaBtn = addBtn("pulaBtn", comandos.PULA);
 
 const abreLoopBtn = document.getElementById("abreLoopBtn");
 abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE_LOOP, repeticoesLoop.value)});
@@ -67,6 +58,11 @@ abreLoopBtn.addEventListener("click", function() {adicionarComando(comandos.ABRE
 const repeticoesLoop = document.getElementById("repeticoesLoop");
 repeticoesLoop.value = 1;
 
+function addBtn(id, comando, repeticoes = 1) {
+    let docItem = document.getElementById(id);
+    docItem.addEventListener("click", function() {adicionarComando(comando, repeticoes)});
+    return docItem;
+}
 
 const fechaLoopBtn = document.getElementById("fechaLoopBtn");
 fechaLoopBtn.addEventListener("click", function() {adicionarComando(comandos.FECHA_LOOP)});
